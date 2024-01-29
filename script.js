@@ -1,3 +1,4 @@
+const apiKey = "87f395a78bc64e53ab860605242601";
 const cityZip = document.getElementById("city-zip");
 const submitButton = document.querySelector("button");
 const cityName = document.getElementsByClassName("city-name")[0];
@@ -5,12 +6,8 @@ const temperature = document.getElementsByClassName("temperature")[0];
 const forecastWeatherContainer = document.getElementsByClassName(
   "forecast-weather-container"
 );
-const forecastBlockOne = document.getElementById("forecast-block-1");
-const forecastBlockTwo = document.getElementById("forecast-block-2");
-const forecastBlockThree = document.getElementById("forecast-block-3");
-const forecastBlockFour = document.getElementById("forecast-block-4");
-
-const apiKey = "87f395a78bc64e53ab860605242601";
+const days = document.getElementsByClassName("day");
+const dayElementsArray = Array.from(days);
 
 async function getWeather() {
   try {
@@ -21,6 +18,7 @@ async function getWeather() {
     console.log(data);
     populateWeather(data);
     getDayLoop(data.forecast.forecastday);
+    populateForecastDays();
   } catch (error) {
     alert(
       `We couldn't find that city or zip code. Please enter a valid city name, US zip code, or UK zip code.`
@@ -31,7 +29,6 @@ async function getWeather() {
 submitButton.addEventListener("click", function (event) {
   event.preventDefault();
   getWeather();
-  populateForecastDays();
 });
 
 function populateWeather(data) {
@@ -62,21 +59,10 @@ function getDayLoop(forecastArray) {
   });
 }
 
-const forecastBlockArray = [
-  forecastBlockOne,
-  forecastBlockTwo,
-  forecastBlockThree,
-  forecastBlockFour,
-];
-
 function populateForecastDays() {
-  console.log(forecastWeatherContainer[0]);
-  dayArray.forEach((day) => {
-    const dayName = document.createElement("p");
-    console.log(day);
-    dayName.textContent = day;
-    console.log(dayName);
-    console.log(forecastWeatherContainer[0]);
-    forecastWeatherContainer[0].appendChild(dayName);
-  });
+  for (let i = 0; i < dayElementsArray.length; i++) {
+    console.log(dayArray[i]);
+    console.log(dayElementsArray[i]);
+    dayElementsArray[i].textContent = dayArray[i];
+  }
 }
